@@ -1,1 +1,1 @@
-# lab1-network
+# lab1-network-aws
