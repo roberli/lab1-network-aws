@@ -49,3 +49,20 @@ resource "aws_instance" "Empresa-B" {
         aws_security_group.ssh_access_sg_empresa-B.id,
     ]
 }
+
+resource "aws_instance" "Empresa-C" {
+    ami                                  = var.ami
+    availability_zone                    = var.az
+    instance_type                        = var.instance_type
+    key_name                             = var.key_name
+    subnet_id                            = aws_subnet.empresa_c_subnet_private.id
+    tags                                 = {
+        "Name" = "Empresa-C"
+    }
+    tags_all                             = {
+        "Name" = "Empresa-C"
+    }
+    vpc_security_group_ids               = [
+        aws_security_group.ssh_access_sg_empresa-C.id,
+    ]
+}

@@ -100,3 +100,56 @@ resource "aws_route" "transit_gateway_route_empresa_b" {
   destination_cidr_block = "10.0.0.0/16"
   transit_gateway_id     = aws_ec2_transit_gateway.transit_gateway.id
 }
+
+resource "aws_route" "peering_empresa_b" {
+  route_table_id         = aws_route_table.private_route_table_empresa_b.id
+  destination_cidr_block = "10.200.0.0/16"
+  gateway_id     = aws_vpc_peering_connection.foo.id
+}
+
+resource "aws_route_table" "public_route_table_empresa_c" {
+  vpc_id = aws_vpc.empresa_c.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw_empresa_c.id
+  }
+
+  tags = {
+    Name = "Empresa C - Public Route Table"
+  }
+}
+
+# Associate public subnets with public route table
+resource "aws_route_table_association" "public_subnet_empresa_c_association" {
+  subnet_id      = aws_subnet.empresa_c_subnet_public.id
+  route_table_id = aws_route_table.public_route_table_empresa_c.id
+}
+
+# Create private route table Empresa C
+resource "aws_route_table" "private_route_table_empresa_c" {
+  vpc_id = aws_vpc.empresa_c.id
+
+  route {
+    cidr_block = "10.100.0.0/16"
+    gateway_id = aws_vpc_peering_connection.foo.id
+  }
+
+  tags = {
+    Name = "Empresa C - Private Route Table"
+  }
+}
+
+resource "aws_route_table_association" "private_subnet_association_empresa_c" {
+  subnet_id      = aws_subnet.empresa_c_subnet_private.id
+  route_table_id = aws_route_table.private_route_table_empresa_c.id
+}
+
+# Create Internet Gateway
+resource "aws_internet_gateway" "igw_empresa_c" {
+  vpc_id = aws_vpc.empresa_c.id
+
+  tags = {
+    Name = "InternetGateway - Empresa C"
+  }
+}

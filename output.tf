@@ -70,3 +70,7 @@ output "Empresa-A_private_ip" {
 output "Empresa-B_private_ip" {
   value = aws_instance.Empresa-B.private_ip
 }
+
+output "Empresa-C_private_ip" {
+  value = aws_instance.Empresa-C.private_ip
+}

@@ -57,3 +57,25 @@ resource "aws_security_group" "ssh_access_sg_empresa-B" {
     tags_all    = {}
     vpc_id      = aws_vpc.empresa_b.id
 }
+
+# aws_security_group.ssh_access_sg_empresa-C:
+resource "aws_security_group" "ssh_access_sg_empresa-C" {
+    description = "ssh_access_sg_empresa-C"
+    egress {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+    ingress {
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"] 
+    }
+    tags = {
+      Name = "ssh_access_sg_empresa-C"
+    }
+    tags_all    = {}
+    vpc_id      = aws_vpc.empresa_c.id
+}
