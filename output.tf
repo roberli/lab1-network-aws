@@ -59,10 +59,6 @@ output "empresa_b_attachment_id" {
   value = aws_ec2_transit_gateway_vpc_attachment.empresa_b_attachment.id
 }
 
-output "bastion_public_ip" {
-  value = aws_instance.bastion.public_ip
-}
-
 output "Empresa-A_private_ip" {
   value = aws_instance.Empresa-A.private_ip
 }
@@ -73,4 +69,8 @@ output "Empresa-B_private_ip" {
 
 output "Empresa-C_private_ip" {
   value = aws_instance.Empresa-C.private_ip
+}
+
+output "bastion_public_ip" {
+  value = aws_instance.bastion.public_ip
 }
