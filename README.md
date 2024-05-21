@@ -51,7 +51,7 @@ Below routes are allowed by this architecture
 
 * You have configured AWS CLI using `aws configure`
 * The role being used from CLI has the permissions required for resources being created by Terraform.
-* Create a Key name to access the EC2 instances after the build of infrastructure
+* Create a Key name before run the Terraform to access the EC2 instances after the build of infrastructure
 
 ## How can I deploy the stack?
 
