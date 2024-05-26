@@ -78,3 +78,7 @@ output "Empresa-C_private_ip" {
 output "Empresa-C-2_private_ip" {
   value = aws_instance.Empresa-C-2.private_ip
 }
+
+output "nlb_access_url" {
+  value = aws_lb.example.dns_name
+}
