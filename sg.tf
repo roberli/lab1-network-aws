@@ -47,8 +47,8 @@ resource "aws_security_group" "ssh_access_sg_empresa-B" {
     }
     ingress {
       description = "HTTPS ingress"
-      from_port   = 443
-      to_port     = 443
+      from_port   = 80
+      to_port     = 80
       protocol    = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
     }
@@ -76,8 +76,8 @@ resource "aws_security_group" "ssh_access_sg_empresa-C" {
     }
     ingress {
       description = "HTTPS ingress"
-      from_port   = 443
-      to_port     = 443
+      from_port   = 80
+      to_port     = 80
       protocol    = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
     }

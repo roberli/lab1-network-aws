@@ -31,3 +31,13 @@ variable "key_name" {
   description = "Key name generated to Lab to access the EC2 instances"
   type = string
 }
+
+variable "tg_ec2_1" {
+  description = "Ip address of the first EC2 instance from the Target Group"
+  type        = string
+}
+
+variable "tg_ec2_2" {
+  description = "Ip address of the second EC2 instance from the Target Group"
+  type        = string
+}
