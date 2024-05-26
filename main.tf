@@ -76,9 +76,26 @@ resource "aws_nat_gateway" "main" {
   }
 }
 
+resource "aws_nat_gateway" "empresa_c" {
+  allocation_id = aws_eip.nat_empresa_c.id
+  subnet_id     = aws_subnet.empresa_c_subnet_public.id # Example, choose one of the public subnets for NAT
+
+  tags = {
+    Name = "NAT Gateway"
+  }
+}
+
 # Create Elastic IP for NAT Gateway
 resource "aws_eip" "nat" {
   #vpc = true //deprecated instead use domain
+  domain = "vpc"
+}
+
+resource "aws_eip" "nat_empresa_c" {
+  domain = "vpc"
+}
+
+resource "aws_eip" "ec2_bastion" {
   domain = "vpc"
 }
 
@@ -104,7 +121,8 @@ resource "aws_route" "transit_gateway_route_empresa_b" {
 resource "aws_route" "peering_empresa_b" {
   route_table_id         = aws_route_table.private_route_table_empresa_b.id
   destination_cidr_block = "10.200.0.0/16"
-  gateway_id     = aws_vpc_peering_connection.foo.id
+  # gateway_id     = aws_vpc_peering_connection.foo.id
+  vpc_peering_connection_id     = aws_vpc_peering_connection.foo.id
 }
 
 resource "aws_route_table" "public_route_table_empresa_c" {
@@ -130,14 +148,27 @@ resource "aws_route_table_association" "public_subnet_empresa_c_association" {
 resource "aws_route_table" "private_route_table_empresa_c" {
   vpc_id = aws_vpc.empresa_c.id
 
-  route {
-    cidr_block = "10.100.0.0/16"
-    gateway_id = aws_vpc_peering_connection.foo.id
-  }
+  # route {
+  #   cidr_block = "10.100.0.0/16"
+  #   # gateway_id = aws_vpc_peering_connection.foo.id
+  #   vpc_peering_connection_id = aws_vpc_peering_connection.foo.id
+  # }
 
   tags = {
     Name = "Empresa C - Private Route Table"
   }
+}
+
+resource "aws_route" "nat_gateway_route_empresa_c_pcx" {
+  route_table_id         = aws_route_table.private_route_table_empresa_c.id
+  destination_cidr_block = "10.100.0.0/16"
+  vpc_peering_connection_id = aws_vpc_peering_connection.foo.id
+}
+
+resource "aws_route" "nat_gateway_route_empresa_c" {
+  route_table_id         = aws_route_table.private_route_table_empresa_c.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.empresa_c.id
 }
 
 resource "aws_route_table_association" "private_subnet_association_empresa_c" {

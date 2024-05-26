@@ -62,6 +62,16 @@ resource "aws_subnet" "empresa_b_subnet_private" {
   }
 }
 
+resource "aws_subnet" "empresa_b_subnet_private_2" {
+  vpc_id            = aws_vpc.empresa_b.id
+  cidr_block        = "10.100.2.0/24"
+  availability_zone = "us-east-1b"
+
+  tags = {
+    Name = "PrivateSubnet2-EmpresaB"
+  }
+}
+
 resource "aws_subnet" "empresa_c_subnet_public" {
   vpc_id            = aws_vpc.empresa_c.id
   cidr_block        = "10.200.0.0/24"
