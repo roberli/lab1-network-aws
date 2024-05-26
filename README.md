@@ -15,6 +15,7 @@ This project intend to show a basic AWS topology to anyone that want to explore 
 * [What are the pre-requisites?](#what-are-the-pre-requisites)
 * [How can I deploy the stack?](#how-can-i-deploy-the-stack)
 * [How can I setup the suggested topology?](#how-can-i-setup-the-suggested-topology)
+* [Tests](#tests)
 * [Let's cleanup](#lets-cleanup)
 * [Security](#security)
 * [License](#license)
@@ -98,6 +99,23 @@ terraform apply
 ```
 
 **Note:** You can verify the traffic flow using the Route Analyzer from Global Network or log-in on EC2 instaces connect by SSH
+
+## Tests
+Access the the private instance through SSH of Empresa A and execute the following command:
+
+```shell
+curl example-nlb-eb5885bcad371723.elb.us-east-1.amazonaws.com -I
+```
+```shell
+curl example-nlb-eb5885bcad371723.elb.us-east-1.amazonaws.com
+```
+Here is the output expected when everything is done
+
+![curl_tests](images/expect_result.png)
+
+Congratulations you finish the Lab, I hope with this lab example you can understand better the resources and the interections of them on the network context. See you next fellas, take care and peace.
+
+**Note:** When you run the Terraform codes, it will generate a different DNS to use for access from private EC2 instance from Empresa A don't forget it.
 
 ## Let's cleanup
 

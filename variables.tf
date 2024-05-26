@@ -41,3 +41,8 @@ variable "tg_ec2_2" {
   description = "Ip address of the second EC2 instance from the Target Group"
   type        = string
 }
+
+variable "az_1a" {
+  description = "Az necessary to apply to Target Group attachment work with remote IP Address"
+  type        = string
+}

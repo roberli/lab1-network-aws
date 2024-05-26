@@ -6,3 +6,4 @@ instance_type = "t2.micro" // For this lab t2.micro is more than enough to work,
 key_name = "hoje" // Replace with the name of Key name that you've created
 tg_ec2_1 = "10.200.1.33"
 tg_ec2_2 = "10.200.1.34"
+az_1a = "us-east-1a"
